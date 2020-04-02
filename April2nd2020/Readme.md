@@ -26,20 +26,20 @@ a- By combining the four RNAs, first we compare the **Cardinal of MM distributio
 b- Then we compare the Cardinal MM and the Prior accross the two conditions:
 |PP Cell-Free | PP IN cell |
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_CellFree_4RNAs)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_Cell_4RNAs)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_Cell_4RNAs.png)|
 |D = 0.024178, p-value = 0.0001262 | D = 0.030404, p-value = 4.564e-07|
 
 
 |UP Cell-Free  | UP IN cell|
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs)| |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs.png)| |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs.png)|
 |D = 0.0090436, p-value = 0.1955 | D = 0.0099233, p-value = 0.1218|
 
 
 
 |UU Cell-Free | UU IN Cell|
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_CellFree_4RNAs)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_Cell_4RNAs)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_Cell_4RNAs.png)|
 |D = 0.0047602, p-value = 0.9995 | D = 0.0076693, p-value = 0.8925|
 
 

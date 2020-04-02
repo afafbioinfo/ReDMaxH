@@ -1,11 +1,14 @@
 
 **Data**
 
-4 RNAs were considered:
+4 RNAs:
 
 5S rRNA E.Coli(Length =120, 80 nucleotides were considered (Length-2*Amplicon))
+
 rpsB E.coli (Length=204, 164 ncts were considered)
+
 rpsM E.coli (Lenght=241, 201 ncts were considered)
+
 RMRP Homo Sapiens (Length=267, 227 ncts were considered)
 
 **1/In Cell Vs.Cell Free**

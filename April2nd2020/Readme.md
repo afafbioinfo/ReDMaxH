@@ -85,6 +85,7 @@ A decomposition of the distribution of the difference based on the nucleotide na
 | :---         |     :---:      |
 |(i,j) has value in [A]|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/3--Figures/AA/5S_cellfree_5S_DMSmodified.txt_%20%23MM(i%2Cj)-Mutr(i)*Mutr(j)*Nij.png)|
 |(i,j) has value in [C]|[GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/3--Figures/CC/5S_cellfree_5S_DMSmodified.txt_%20%23MM(i%2Cj)-Mutr(i)*Mutr(j)*Nij.png)|
+
 |(i,j) has value in [G]|[GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/3--Figures/GG/5S_cellfree_5S_DMSmodified.txt_%20%23MM(i%2Cj)-Mutr(i)*Mutr(j)*Nij.png)|
 |(i,j) has value in [U]|[GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/3--Figures/UU/5S_cellfree_5S_DMSmodified.txt_%20%23MM(i%2Cj)-Mutr(i)*Mutr(j)*Nij.png)|
 

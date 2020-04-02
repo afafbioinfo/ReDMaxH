@@ -16,14 +16,17 @@ Let's start by performing KS test on 10.000 newly generated samples from the dat
 
 a- By combining the four RNAs, first we compare the Cardinal of MM between in cell and Cell Free distributions:
 
+| PP | UP | UU |
+| :---         |     :---:      |          ---: |
+| 22-Figures/PP_Cell_CellFree_4RNAs.png   | 22-Figures/UP_Cell_CellFree_4RNAs.png    | 22-Figures/UU_Cell_CellFree_4RNAs.png    |
+| 16544 Obs. D = 0.021035, p-value = 0.001324    | 28418 Obs. D = 0.044866, p-value < 2.2e-16       | 11344 Obs. D = 0.068671, p-value < 2.2e-16   |
 
 
-/Figures/PP_Cell_CellFree_4RNAs.png
-16544 Obs. D = 0.021035, p-value = 0.001324
-/Figures/UP_Cell_CellFree_4RNAs.png
-28418 Obs. D = 0.044866, p-value < 2.2e-16
-Figures/UU_Cell_CellFree_4RNAs.png
-11344 Obs. D = 0.068671, p-value < 2.2e-16
+
+
+
+
+
 
 
 b- Compare Cardinal and Prior

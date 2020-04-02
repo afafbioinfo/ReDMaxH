@@ -14,17 +14,18 @@ We assume that the RNA folds the same way in Cell and in Cell-free condition. Is
 Let's start by performing KS test on 10.000 newly generated samples from the data(Permutation approach) and compare this KS-distribution to the kS-test of the data.
 
 
-a- By combining the four RNAs, first we compare the Cardinal of MM between in cell and Cell Free distributions:
+a- By combining the four RNAs, first we compare the **Cardinal of MM distribution between in cell and cell free conditions**:
 
 | PP | UP | UU |
 | :---         |     :---:      |          ---: |
 | ![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/PP_Cell_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UP_Cell_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UU_Cell_CellFree_4RNAs.png)   |
 | 16544 Obs. D = 0.021035, p-value = 0.001324    | 28418 Obs. D = 0.044866, p-value < 2.2e-16       | 11344 Obs. D = 0.068671, p-value < 2.2e-16   |
 
-b- Compare Cardinal and Prior
-PP Cell-Free & PP IN cell
-/Figures/CardinalvsPriorPP_CellFree_4RNAs & /Figures/CardinalvsPriorPP_Cell_4RNAs
-D = 0.024178, p-value = 0.0001262 & D = 0.030404, p-value = 4.564e-07
+b- Then we compare the Cardinal MM and the Prior accross the two conditions:
+|PP Cell-Free | PP IN cell |
+| :---         |     :---:      |    
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_CellFree_4RNAs|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorPP_Cell_4RNAs|
+|D = 0.024178, p-value = 0.0001262 | D = 0.030404, p-value = 4.564e-07|
 
 
 UP Cell-Free  & UP IN cell

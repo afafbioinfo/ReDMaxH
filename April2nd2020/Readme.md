@@ -12,6 +12,7 @@ rpsM E.coli (Lenght=241, 201 ncts were considered)
 RMRP Homo Sapiens (Length=267, 227 ncts were considered)
 
 **1/In Cell Vs.Cell Free**
+
 We assume that the RNA folds the same way in Cell and in Cell-free condition. Is the difference between the distribution of the structure of tuples (i,j) statistically significant?
 
 
@@ -49,30 +50,36 @@ b- Then we compare the Cardinal MM and the Prior accross the two conditions:
 
 *When comparing data for 4 RNAs from Cell and Cell-free conditions, the Prior seems to be a good approximation for (i,j) in [(Upaired,Unpaired),(Unpaired,paired),(paired,Unpaired)] with a P-value above 0.05.
 
-2/ DMS probes the base, what does the Mutation rate distribution looks like for each single nucleotides(C,G,U,A) and for each structural context (Unpaired, Helix-end, paired in Stack)?
+** 2/A nucleotide and a structure decomposition of the mutation rate distributions **
+
+DMS probes the base, what does the Mutation rate distribution looks like for each single nucleotides(C,G,U,A) and for each structural context (Unpaired, Helix-end, paired in Stack)?
 
 The obtained distributions for both Cell and Cell-Free conditions sorted by nucleotide nature:
 
-Figures/MutationrateC-A-CellFree.png
-Figures/MutationrateC-A-INCell.png
-Figures/MutationrateG-U-CellFree.png
-Figures/MutationrateG-U-INCell.png
+|Cell-Free | IN Cell|
+| :---         |     :---:      |    
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-CellFree.png)|
+![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-INCell.png)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-CellFree.png)|
+![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-INCell.png)|
+
 
 The obtained distributions for both Cell and Cell-Free conditions sorted by local structure:
+    
 298 Obs. for Unpaired, 242 Obs. for Stack paired and 121 Obs. for Helix-end paired nucleotides.
-Figures/Unpaired_HE_Stack_CELLFree.png
-Figures/Unpaired_HE_Stack_INCELL.png
+
+|Cell-Free | IN Cell|
+| :---         |     :---:      |
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/Unpaired_HE_Stack_CELLFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/Unpaired_HE_Stack_INCELL.png)|
+
 
 Let us decompose these distributions in function of the nucleotide nature:
-
-Figures/A-Unpaired_HE_Stack_CELLFree.png
-Figures/A-Unpaired_HE_Stack_INCELL.png
-Figures/C-Unpaired_HE_Stack_CELLFree.png
-Figures/C-Unpaired_HE_Stack_INCELL.png
-Figures/G-Unpaired_HE_Stack_CELLFree.png
-Figures/G-Unpaired_HE_Stack_INCELL.png
-Figures/U-Unpaired_HE_Stack_CELLFree.png
-Figures/U-Unpaired_HE_Stack_INCELL.png
+|Nucleotide|Cell-Free | IN Cell|
+| :---    | :---         |     :---:      |
+|A|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/A-Unpaired_HE_Stack_CELLFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/A-Unpaired_HE_Stack_INCELL.png)|
+|C|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/C-Unpaired_HE_Stack_CELLFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/C-Unpaired_HE_Stack_INCELL.png)|
+|G|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/G-Unpaired_HE_Stack_CELLFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/G-Unpaired_HE_Stack_INCELL.png)|
+|U|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/U-Unpaired_HE_Stack_CELLFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/U-Unpaired_HE_Stack_INCELL.png)|
 
 3/ 5SrRNA_Ecoli:
 A decomposition of the distribution of the difference based on the nucleotide nature:

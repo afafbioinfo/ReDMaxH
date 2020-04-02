@@ -18,10 +18,7 @@ a- By combining the four RNAs, first we compare the Cardinal of MM between in ce
 
 | PP | UP | UU |
 | :---         |     :---:      |          ---: |
-| 
-![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/PP_Cell_CellFree_4RNAs.png)   | 
-![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UP_Cell_CellFree_4RNAs.png)   | 
-![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UU_Cell_CellFree_4RNAs.png)   |
+| ![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/PP_Cell_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UP_Cell_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/UU_Cell_CellFree_4RNAs.png)   |
 | 16544 Obs. D = 0.021035, p-value = 0.001324    | 28418 Obs. D = 0.044866, p-value < 2.2e-16       | 11344 Obs. D = 0.068671, p-value < 2.2e-16   |
 
 b- Compare Cardinal and Prior

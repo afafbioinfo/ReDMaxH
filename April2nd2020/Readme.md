@@ -58,10 +58,8 @@ The obtained distributions for both Cell and Cell-Free conditions sorted by nucl
 
 |Cell-Free | IN Cell|
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-CellFree.png)|
-![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-INCell.png)|
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-CellFree.png)|
-![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-INCell.png)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-CellFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateC-A-INCell.png)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-CellFree.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/2--Figures/MutationrateG-U-INCell.png)|
 
 
 The obtained distributions for both Cell and Cell-Free conditions sorted by local structure:

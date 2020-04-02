@@ -32,7 +32,7 @@ b- Then we compare the Cardinal MM and the Prior accross the two conditions:
 
 |UP Cell-Free  | UP IN cell|
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs.png)| |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs.png)|
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs.png)|
 |D = 0.0090436, p-value = 0.1955 | D = 0.0099233, p-value = 0.1218|
 
 
@@ -42,6 +42,9 @@ b- Then we compare the Cardinal MM and the Prior accross the two conditions:
 |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_CellFree_4RNAs.png)|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUU_Cell_4RNAs.png)|
 |D = 0.0047602, p-value = 0.9995 | D = 0.0076693, p-value = 0.8925|
 
+*Remarks*
+
+*When comparing data for 4 RNAs from Cell and Cell-free conditions, the Prior seems to be a good approximation for (i,j) in [(Upaired,Unpaired),(Unpaired,paired),(paired,Unpaired)] with a P-value above 0.05.
 
 2/ DMS probes the base, what does the Mutation rate distribution looks like for each single nucleotides(C,G,U,A) and for each structural context (Unpaired, Helix-end, paired in Stack)?
 

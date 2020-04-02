@@ -32,8 +32,8 @@ b- Then we compare the Cardinal MM and the Prior accross the two conditions:
 
 |UP Cell-Free  | UP IN cell|
 | :---         |     :---:      |    
-|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs)| & |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs)|
-D = 0.0090436, p-value = 0.1955 & D = 0.0099233, p-value = 0.1218
+|![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_CellFree_4RNAs)| |![GitHub Logo](https://github.com/afafbioinfo/BackupGatech/blob/master/April2nd2020/1-Figures/CardinalvsPriorUP_Cell_4RNAs)|
+|D = 0.0090436, p-value = 0.1955 | D = 0.0099233, p-value = 0.1218|
 
 
 

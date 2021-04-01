@@ -7,7 +7,8 @@ ParseMapping allows to parse Shapemapper outputs and returns the raw mutation co
 
 Input files:
 
-Insert the Pipeline_Modified_RNA_parsed.mut in the folder OutputSHAPEMapper 
+Insert Pipeline_Untreated_5S_parsed.mut and Pipeline_Modified_RNA_parsed.mut in the folder OutputSHAPEMapper 
+
 
 Understand the ouput files:
 

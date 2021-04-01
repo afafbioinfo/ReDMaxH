@@ -5,6 +5,10 @@ ParseMapping allows to parse Shapemapper outputs and returns the raw mutation co
   - python ParseMapping.py --fasta RNA.fa Pipeline_Modified_RNA_parsed.mut --untreated  Pipeline_Untreated_RNA_parsed.mut   --mincoverage 0 OutputFile
 
 
+Input files:
+
+Insert the Pipeline_Modified_RNA_parsed.mut in the folder OutputSHAPEMapper 
+
 Understand the ouput files:
 
 Output Suffix:

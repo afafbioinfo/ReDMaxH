@@ -1,7 +1,7 @@
 
 
 #ParseMappig.py allows to compute  raw count mutations.
-# The current code uses some functions from the Ringmapper software.
+# The current code uses some functions from the Ringmapper software to parse Shapemapper output.
 
 '''
 MIT License
@@ -48,6 +48,7 @@ class Parseexperiment(object):
             self.arraysize = arraysize
         
         # initialize matrix values
+        
         # experimetal matrices hold raw experiment data
         self.ex_readarr = None
         self.ex_comutarr = None
@@ -232,7 +233,7 @@ class Parseexperiment(object):
         #for prefix in ('bg','ex'):  
         for prefix in ('bg','ex'): 
             #print prefix 
-            with open(args.outputFile+"FREQUENCY_COUNT"+prefix+".txt",'w') as OUT:
+            with open(args.outputFile+"FREQUENCY_"+str(Tag)+prefix+".txt",'w') as OUT:
                 OUT.write("i-1based \t j-1based \t UU \t UM \t MU \t MM \t #Reads \n" )
                 for i in range(seqlen):
                     for j in range(i, seqlen):
@@ -251,7 +252,7 @@ def parseArguments():
     parser = argparse.ArgumentParser(description = "Compute correlations from parsed mutations")
     parser.add_argument('inputFile', help='Path to mutation stParse file (can be new or old ShapeMapper format)')
     parser.add_argument('outputFile', help='Path for correlation output file')
-    
+    parser.add_argument('--Tag', help='Experimental set')
     parser.add_argument('--fasta', help='Path to fasta sequence file')
     
     parser.add_argument('--untreated', help='Path to untreated (bg) mutation file. Used to remove high bg positions and bg correlations')
@@ -302,6 +303,7 @@ if __name__ == '__main__':
     #verbal = True # afaf verbal to false
     verbal = False
     # initialize the object and read in matrices
+    Tag=args.Tag
     Parseexp = Parseexperiment(fasta=args.fasta, 
                              exfile = args.inputFile,
                              bgfile = args.untreated,
@@ -311,3 +313,4 @@ if __name__ == '__main__':
                              verbal = verbal)
     
     Parseexp.DisplayFreq()
+   

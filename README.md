@@ -10,7 +10,7 @@ Input files:
 Insert Pipeline_Untreated_5S_parsed.mut and Pipeline_Modified_RNA_parsed.mut in the folder OutputSHAPEMapper 
 
 
-Understand the ouput files:
+Understand the fields of the ouput files:
 
 Output Suffix:
 
@@ -29,4 +29,6 @@ MergedHelices.csv         List of helix pair compounds with the number of common
 
 contributingpairsforrankedhelices.csv  Value of relative difference for tuples from helix and helix coumpounds.
 
-RedmaxH_Rankedhelices.csv 
+RedmaxH_Rankedhelices.csv The list of Ranked helices and helix-compounds 
+(Helix (= Helix or coumpound) ,averageRLtdiff (Mean over all contributing tuples),nbrobservations (# of tuples),Length (Length of a Helix),nbrCCpairs,nbrAApairs,Profiling,std,median,averageonpositive,stdonpositive,medianonpsitive)
+

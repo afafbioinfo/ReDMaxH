@@ -26,7 +26,7 @@ def GenerateMaximalhelices(seq, Hlength):
 
   	
 	output="result.txt"
-	Command = '/home/user/Downloads/HelixEnumeration-master/Build/src/HelixEnumeration -s '
+	Command = 'ExternalScripts/HelixEnumeration-master/HelixEnumeration-master/Build/src/HelixEnumeration -s '
 	Command += seq 
   	Command += 'k' + str(Hlength) #it seems that the argument is not working
 	subprocess.call(Command, stdout=open(output, 'wb'), stderr=open(os.devnull, 'w'), shell=True)

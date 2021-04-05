@@ -35,8 +35,9 @@ python2.7 RedMaxH.py --file  $1FREQUENCY_$2ex.txt --output RedMaxHoutput --fasta
 echo "Relative differences have been successfully computed";
 
 echo "Generating plots...";
-
+######## Generate heatmaps
 Rscript --vanilla RelativeDifferenceViewer.R --RD1=./RedMaxHoutput/$1FREQUENCY_$2ex_Rawdata.csv --RD2=./RedMaxHoutput/$1FREQUENCY_$2ex_Rawdata.csv 
-
+####### Clustering of ranked helices
+Rscript --vanilla Clustering.R --C=./RedMaxHoutput/$1FREQUENCY_$2ex_contributingpairsforrankedhelices.csv  --R=./RedMaxHoutput/$1FREQUENCY_$2ex_RedmaxH_Rankedhelices.csv
 echo "RedMaxH pipeline has been completed";
 

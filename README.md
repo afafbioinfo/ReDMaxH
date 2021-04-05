@@ -65,6 +65,6 @@ between to count a joint mutation.
 **RedMaxPlots** files:
 
 
-`Clusters_Helices.pdf` Clustering of Ranked helices according to  3 methods. If you are using the input example provided, you expect the result to be (link)![https://github.com/afafbioinfo/RedMaxH/blob/master/Clusters_Helices(Expectedplot).pdf]
+`Clusters_Helices.pdf` Clustering of Ranked helices according to  3 methods. If you are using the input example provided, you expect the result to be [https://github.com/afafbioinfo/RedMaxH/blob/master/Clusters_Helices(Expectedplot).pdf]
 
 

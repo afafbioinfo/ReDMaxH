@@ -39,7 +39,7 @@ Files should be placed in the folder `OutputSHAPEMapper`
 
 RedMaxH typically produces many files in `RedMaxHoutput` and plots in `RedMaxPlots`
 
-**`RedMaxHoutput`** files suffixe:
+**RedMaxHoutput** files suffixe:
 
 `Profiling.csv`  Set of maximal helices (name, opening, closing, length)
 

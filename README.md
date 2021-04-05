@@ -61,3 +61,7 @@ between to count a joint mutation.
 
 
 `Kmeans_elbow_mean.csv` Ranked helices affected to clusters ( where the number of clusters is determined using the elbow method) with their classification based on global std and global  mean.
+
+**RedMaxPlots** files:
+
+Clusters_Helices.pdf

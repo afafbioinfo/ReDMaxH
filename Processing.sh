@@ -5,13 +5,14 @@ mkdir -p RedMaxPlots
 
 # Make sure helix maximal generator is installed
 # source https://github.gatech.edu/fhurley6/HelixEnumeration
- if [ ! -d ExternalScripts/HelixEnumeration-master/Build ]; then
+ if [ ! -d ExternalScripts/HelixEnumeration-master/HelixEnumeration-master/Build ]; then
  
 
-cd ExternalScripts/HelixEnumeration-master
+cd ExternalScripts/HelixEnumeration-master/HelixEnumeration-master
 mkdir Build && cd Build
 cmake ..
 make
+cd ..
 cd ..
 cd ..
 cd ..
@@ -40,4 +41,3 @@ Rscript --vanilla RelativeDifferenceViewer.R --RD1=./RedMaxHoutput/$1FREQUENCY_$
 ####### Clustering of ranked helices
 Rscript --vanilla Clustering.R --C=./RedMaxHoutput/$1FREQUENCY_$2ex_contributingpairsforrankedhelices.csv  --R=./RedMaxHoutput/$1FREQUENCY_$2ex_RedmaxH_Rankedhelices.csv
 echo "RedMaxH pipeline has been completed";
-

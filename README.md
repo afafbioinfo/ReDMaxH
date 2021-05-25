@@ -13,7 +13,7 @@ RedMaxH consists in a set of Python 2.7+, C and R scripts.
 ## Executing RedMaxH
 
 RedMaxH can be invoked through a one bash command: 
-      bash  5S DMSCellfree
+    
 
       bash Processing.sh [ RNA] [condition]
 

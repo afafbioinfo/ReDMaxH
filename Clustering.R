@@ -152,3 +152,101 @@ p1<-p1+ theme(legend.position = "bottom",panel.grid.major = element_blank(), pan
 
 ggexport(p1, filename = "RedMaxPlots/Color_by_average_Helices.pdf", width =30.0, height = 15)
 
+
+####################Ploting arc diagrams
+
+
+BPs<- read.csv(file ='/home/user/Downloads/RedMaxH-master/RedMaxHoutput_benchmark/5SProfiling.csv')
+head(BPs)
+head(Rankedhelices)
+
+str_split("C64-C63","-")
+
+################## Get all contributing BPs for a given helix
+library(tidyverse)
+df_total = data.frame()
+for (row in 1:nrow(BPs)) {
+  Helix <- BPs[row, "Helix"]
+  opening  <- BPs[row, "opening"]
+closing <- BPs[row, "closing"]
+L<- BPs[row, "length"]
+df<-bind_cols(Helix,seq(opening, opening+L, by=1 ),seq(closing, closing-L, by=-1 ))
+df_total <- rbind(df_total,df)
+}
+colnames(df_total)=c("Helix", "i","j")
+head(df_total)
+############################ split helix compounds
+head(Rankedhelices)
+df_rankedHelices = data.frame()
+for (row in 1:nrow(Rankedhelices)) {
+  Helix <- Rankedhelices[row, "Helix"]
+ Rlt<-Rankedhelices[row, "averageRLtdiff"]
+  df <-bind_cols(str_split(Helix,"-"), Rlt,row)
+  df_rankedHelices<- rbind( df_rankedHelices,df)
+}
+colnames( df_rankedHelices)=c("Helix", "Rd","order")
+head( df_rankedHelices)
+
+############################## Combine  df_total with  df_rankedHelices based on values in ranked helices
+WeightedBasepairs<-merge(df_rankedHelices, df_total, by.x="Helix", by.y="Helix")
+Numberofcompoundsforarcplot=12
+head(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,])
+library(ggplot2)
+library(ggraph)
+
+arc_theme <-  theme(axis.line=element_blank(),
+                     axis.text.y=element_blank(),
+                     axis.ticks=element_blank(),
+                     axis.title.x=element_blank(),
+                     axis.title.y=element_blank(),
+                     panel.background=element_blank(),
+                     panel.border=element_blank(),
+                     panel.grid.major=element_blank(),
+                     panel.grid.minor=element_blank(),
+                    panel.grid.major.x = element_line( size=.1, color="grey" ),
+                     plot.background=element_blank(),
+                     plot.title = element_text(family="Helvetica Neue Light", size=20, face="plain"),
+                     plot.subtitle =  element_text(family="Helvetica Neue Light", size=12.9, face="plain"),
+                     legend.text =  element_text(family="Helvetica Neue Light", face="plain"),
+                     legend.title = element_text(family="Helvetica Neue Light", face="plain"),
+                     axis.text = element_text(family="Helvetica Neue Light", face="plain", size=6),
+                     legend.key = element_blank())
+
+Numberofcompoundsforarcplot=12
+
+
+
+head(Rankedhelices)
+SelectedHelices<-df_rankedHelices[df_rankedHelices$order<=Numberofcompoundsforarcplot,]
+
+
+LabelsHelices<-merge(SelectedHelices, BPs, by.x="Helix", by.y="Helix")
+head(LabelsHelices)
+require(tidygraph)
+head(BPs)
+library(ggraph)#
+Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,], layout = 'linear') + 
+  geom_edge_arc(aes( x=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$i, xend=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j,colour=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$Rd), 
+                fold = TRUE)+
+ # geom_text(data=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,],
+ #   label=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$Helix, 
+  #  x = WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$i, y = 20, 
+ #   check_overlap = T
+ # )+
+  geom_label(data=LabelsHelices,
+             label=LabelsHelices$Helix, 
+             x = LabelsHelices$opening+LabelsHelices$length/2, y = LabelsHelices$length, 
+             #check_overlap = T,
+             label.padding = unit(0.55, "lines"), # Rectangle size around label
+             label.size = 0.35,
+             color = "black",
+             fill=LabelsHelices$Rd
+  )+
+ # scale_x_continuous(expand = c(0, 0),limits = c(1,120))  +
+  scale_edge_colour_gradientn(name ="Rd average",colours = myPalette(100), limits=c(-1, 1))+
+  theme_minimal()+
+  scale_x_continuous(breaks = seq(0,max(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j)+10, by = 10))+
+  arc_theme
+ 
+Parcplots
+

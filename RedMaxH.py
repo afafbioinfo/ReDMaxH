@@ -38,7 +38,7 @@ def Computecorrelations(MM,UU,Prior,Pairs,lenRNA,Name,MinLenHelix,setofhelices):
 		for j in range(len(MM)):
 			if Prior[i,j]!=0:
 				Norm[i,j]=(MM[i,j]-Prior[i,j])/float(Prior[i,j])
-				print "mmmmmmmmmm",Norm[i,j]
+				#print "mmmmmmmmmm",Norm[i,j]
 	#set diagonals to Zero
         for i in range( len(MM)):
 		MM[i,i]=np.nan
@@ -196,7 +196,7 @@ def Computecorrelations(MM,UU,Prior,Pairs,lenRNA,Name,MinLenHelix,setofhelices):
 						Averagehelixtoadd[str(Helix+"-"+Helice)]=(round(np.mean(X),3),len(X),999,999,999,X,round(np.std(X),3),round(np.median(toaverage),3),round(np.mean([x for x in toaverage if x>0]),3),round(np.std([x for x in toaverage if x>0]),3),round(np.median([x for x in toaverage if x>0]),3))
 	
 						#feed the list of Rc with the new combinaisons and remove the preexisting ones.
-						print Helix,Helice,X
+						#print Helix,Helice,X
 						removed.append(Helix)
 						removed.append(Helice)
 				#if Averagehelix[Helix][0]<Averagehelix[Helice][0] and 2*commonpairs>=Averagehelix[Helix][1]:
@@ -216,7 +216,7 @@ def Computecorrelations(MM,UU,Prior,Pairs,lenRNA,Name,MinLenHelix,setofhelices):
 	shorthelices=[]
 	
 	for helix in Averagehelix:
-		print key
+		#print key
 		if Averagehelix[helix][1]<(3*5+4):
 			shorthelices.append(helix)
 	for helix in list(set(	shorthelices)):
@@ -384,7 +384,7 @@ if __name__=="__main__":
 		       # change to 0-based
 		       I=int(i)-1
 		       J=int(j)-1
-		       print I,J
+		       #print I,J
 		       #print I,J,int(MM)
 		       N[I,J]=int(bb+kk+dd+aa)
 		       MM[I,J]= int(aa)

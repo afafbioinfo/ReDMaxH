@@ -10,14 +10,23 @@ option_list = list(
   make_option(c("-R", "--R"), type="character", default=NULL, 
               help="Ranked helices", metavar="Path To file"),
   make_option(c("-C", "--C"), type="character", default=NULL, 
-              help="Contributing pairs", metavar="Path To file")
+              help="Contributing pairs", metavar="Path To file"),
+  make_option(c("-P", "--P"), type="character", default=NULL, 
+              help="Maximal helices", metavar="Path To file"),
+   make_option(c("-N", "--N"), type="integer", default=NULL, 
+              help="Number of MH compounds to plot in arc diagram") ,
+  make_option(c("-F", "--F"), type="character", default=NULL, 
+        help="Fasta File Name")
 ); 
+
 
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 print(opt)
 
 if (!require("ggplot2")) install.packages("ggplot2")
+if (!require("tidygraph")) install.packages("tidygraph")
+if (!require("ggraph")) install.packages("ggraph")
 if (!require("gridExtra")) install.packages("gridExtra")
 if (!require("cowplot")) install.packages("cowplot")
 if (!require("egg")) install.packages("egg")
@@ -30,7 +39,7 @@ if (!require("ggpubr")) install.packages("ggpubr")
 
 contributingpairs<- read.csv(file = opt$C)
 Rankedhelices<- read.csv(file = opt$R)
-
+FASTA<-opt$F
 target<-as.character(Rankedhelices$Helix)
 
 M<-mean(Rankedhelices$averageRLtdiff)
@@ -126,41 +135,38 @@ library(ggpubr)
 
 multi.page <- ggarrange(p1, p2, g,
                         nrow =9, ncol = 1)
-ggexport(multi.page, filename = "RedMaxPlots/Clusters_Helices.pdf", width =30.0, height = 15)
+ggexport(multi.page, filename =paste( "RedMaxPlots/",FASTA,"_Clusters_Helices.pdf"), width =30.0, height = 15)
 
 
 
-ggexport(p1, filename = "RedMaxPlots/Elbow_Clusters_Helices.pdf", width =30.0, height = 15)
+ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Elbow_Clusters_Helices.pdf"), width =30.0, height = 15)
 
 
 
 
 myPalette <- colorRampPalette(brewer.pal(11, "Spectral"))
 sc <- scale_colour_gradientn(name ="Average R",colours = myPalette(100), limits=c(-1, 1))
+
+
 p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRLtdiff))+#as.factor(Helix))) +
   sc+
-  ggtitle("Kmeans on Mean, nbr clusters (elbow)")+
   geom_violin(colour = "grey50")+
   geom_boxplot(width=0.1,colour = "grey50")+
   stat_summary(fun.y=mean, geom="point", size=2, color="black")+
   geom_jitter( size = 3)+ylim(-1,3)+
-  
   facet_wrap(~as.factor(contributingpairsX$Helix),nrow = 1)
 
 p1<-p1+ theme(legend.position = "bottom",panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-              panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.title.x = element_blank(),axis.title.y = element_blank(), axis.text.x=element_blank())
-
-ggexport(p1, filename = "RedMaxPlots/Color_by_average_Helices.pdf", width =30.0, height = 15)
-
-
-####################Ploting arc diagrams
+              panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.title.x = element_blank(),axis.title.y = element_blank(), axis.text.x=element_blank(),axis.text=element_text(size=25,face="bold"),legend.title = element_text( size=30, face="bold"),legend.text = element_text( size=25, 
+                                     ),legend.key.size = unit(2, 'cm'))
 
 
-BPs<- read.csv(file ='/home/user/Downloads/RedMaxH-master/RedMaxHoutput_benchmark/5SProfiling.csv')
-head(BPs)
-head(Rankedhelices)
+ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Color_by_average_Helices.pdf"), width =30.0, height = 15)
 
-str_split("C64-C63","-")
+
+
+####################Plotting arc diagrams
+BPs<- read.csv(file = opt$P)
 
 ################## Get all contributing BPs for a given helix
 library(tidyverse)
@@ -174,9 +180,7 @@ df<-bind_cols(Helix,seq(opening, opening+L, by=1 ),seq(closing, closing-L, by=-1
 df_total <- rbind(df_total,df)
 }
 colnames(df_total)=c("Helix", "i","j")
-head(df_total)
 ############################ split helix compounds
-head(Rankedhelices)
 df_rankedHelices = data.frame()
 for (row in 1:nrow(Rankedhelices)) {
   Helix <- Rankedhelices[row, "Helix"]
@@ -185,14 +189,12 @@ for (row in 1:nrow(Rankedhelices)) {
   df_rankedHelices<- rbind( df_rankedHelices,df)
 }
 colnames( df_rankedHelices)=c("Helix", "Rd","order")
-head( df_rankedHelices)
+#head( df_rankedHelices)
 
 ############################## Combine  df_total with  df_rankedHelices based on values in ranked helices
 WeightedBasepairs<-merge(df_rankedHelices, df_total, by.x="Helix", by.y="Helix")
-Numberofcompoundsforarcplot=12
-head(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,])
-library(ggplot2)
-library(ggraph)
+#Numberofcompoundsforarcplot=12
+#head(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,])
 
 arc_theme <-  theme(axis.line=element_blank(),
                      axis.text.y=element_blank(),
@@ -212,19 +214,13 @@ arc_theme <-  theme(axis.line=element_blank(),
                      axis.text = element_text(family="Helvetica Neue Light", face="plain", size=6),
                      legend.key = element_blank())
 
-Numberofcompoundsforarcplot=12
+Numberofcompoundsforarcplot=opt$N
 
-
-
-head(Rankedhelices)
 SelectedHelices<-df_rankedHelices[df_rankedHelices$order<=Numberofcompoundsforarcplot,]
 
 
 LabelsHelices<-merge(SelectedHelices, BPs, by.x="Helix", by.y="Helix")
-head(LabelsHelices)
-require(tidygraph)
-head(BPs)
-library(ggraph)#
+
 Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,], layout = 'linear') + 
   geom_edge_arc(aes( x=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$i, xend=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j,colour=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$Rd), 
                 fold = TRUE)+
@@ -234,13 +230,17 @@ Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsfo
  #   check_overlap = T
  # )+
   geom_label(data=LabelsHelices,
-             label=LabelsHelices$Helix, 
-             x = LabelsHelices$opening+LabelsHelices$length/2, y = LabelsHelices$length, 
-             #check_overlap = T,
-             label.padding = unit(0.55, "lines"), # Rectangle size around label
+              label=LabelsHelices$Helix, 
+             x = LabelsHelices$opening+LabelsHelices$length/2, y = 1.5*log2(LabelsHelices$length), 
+         hjust = rep(-1:1, length.out=length(LabelsHelices$opening)),
+            vjust = rep(-0.6:0.6, length.out=length(LabelsHelices$opening)),
+            #angle = c( 45, -45),
+            #check_overlap = T,
+              label.padding = unit(0.55, "lines"), # Rectangle size around label
              label.size = 0.35,
-             color = "black",
-             fill=LabelsHelices$Rd
+  #            #color = "black",
+  #           size=4,
+            fill="grey",alpha=0.1
   )+
  # scale_x_continuous(expand = c(0, 0),limits = c(1,120))  +
   scale_edge_colour_gradientn(name ="Rd average",colours = myPalette(100), limits=c(-1, 1))+
@@ -248,5 +248,7 @@ Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsfo
   scale_x_continuous(breaks = seq(0,max(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j)+10, by = 10))+
   arc_theme
  
-Parcplots
+
+ggexport(Parcplots, filename = paste("RedMaxPlots/",FASTA,"_Arc_diagram_Color_by_average_Helices.eps"), width =30, height = 5)
+
 

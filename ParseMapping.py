@@ -31,12 +31,11 @@ import matplotlib.pyplot as plt
 #Afaf#####################
 
 class Parseexperiment(object):
-    def __init__(self, fasta = None, exfile=None, bgfile=None, arraysize=1000, 
+    def __init__(self, fasta = None, exfile=None, arraysize=1000, 
                  corrtype = 'g', verbal=False, **kwargs):
         """
         fasta = fasta file of the sequence being analyzed
         exfile = datafile containing experiment data
-        bgfile = datafile containing bg data
         arraysize = optional size of the arrays, if fasta not provided
         """
 
@@ -55,17 +54,15 @@ class Parseexperiment(object):
         self.ex_inotjarr = None
         
         # control matrices hold raw bg data
-        self.bg_readarr = None
-        self.bg_comutarr = None
-        self.bg_inotjarr = None
+        #self.bg_readarr = None
+        #self.bg_comutarr = None
+        #self.bg_inotjarr = None
         
         self.window = None
 
         if exfile:
             self.initDataMatrices('ex', exfile.encode('utf8'), verbal=verbal, **kwargs)
-        if bgfile:
-            self.initDataMatrices('bg', bgfile.encode('utf8'), verbal=verbal, **kwargs)
-
+        
     def readFasta(self, fasta, verbal=False):
 	with open(fasta) as inp:
             inp.readline() 
@@ -231,9 +228,10 @@ class Parseexperiment(object):
         seqlen = self.getMaxArrayIndex()
         UU=numpy.zeros((seqlen,seqlen))
         #for prefix in ('bg','ex'):  
-        for prefix in ('bg','ex'): 
+        if 1==1: 
+            prefix='ex'
             #print prefix 
-            with open(args.outputFile+"FREQUENCY_"+str(Tag)+prefix+".txt",'w') as OUT:
+            with open("RedMaxHoutput/"+args.outputFile+"FREQUENCY_"+str(Tag)+prefix+".txt",'w') as OUT:
                 OUT.write("i-1based \t j-1based \t UU \t UM \t MU \t MM \t #Reads \n" )
                 for i in range(seqlen):
                     for j in range(i, seqlen):
@@ -255,7 +253,7 @@ def parseArguments():
     parser.add_argument('--Tag', help='Experimental set')
     parser.add_argument('--fasta', help='Path to fasta sequence file')
     
-    parser.add_argument('--untreated', help='Path to untreated (bg) mutation file. Used to remove high bg positions and bg correlations')
+    #parser.add_argument('--untreated', help='Path to untreated (bg) mutation file. Used to remove high bg positions and bg correlations')
     parser.add_argument('--mindepth', type=int, default=10000, help='Minimum pairwise read depth allowed for calculating correlations (default = 10000)')
     parser.add_argument('--mincount', type=int, default=50, help="""Minimum required count in contigency table 
                         (default = 50). Nt pairs with fewer than this number of comutations are ignored""")
@@ -306,7 +304,6 @@ if __name__ == '__main__':
     Tag=args.Tag
     Parseexp = Parseexperiment(fasta=args.fasta, 
                              exfile = args.inputFile,
-                             bgfile = args.untreated,
                              arraysize = args.molsize,
                              mincoverage = args.mincoverage,
                              undersample = args.undersample,   

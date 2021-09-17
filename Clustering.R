@@ -143,7 +143,7 @@ ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Elbow_Clusters_Helices.pdf"
 
 
 
-
+##############" TODO  bring back the mypalette to the first Spectral values
 myPalette <- colorRampPalette(brewer.pal(11, "Spectral"))
 sc <- scale_colour_gradientn(name ="Average R",colours = myPalette(100), limits=c(-1, 1))
 
@@ -164,7 +164,24 @@ p1<-p1+ theme(legend.position = "bottom",panel.grid.major = element_blank(), pan
 ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Color_by_average_Helices.pdf"), width =30.0, height = 15)
 
 
+myPalette <- colorRampPalette(brewer.pal(11, "RdBu"))
+sc <- scale_colour_gradientn(name ="Average R",colours = myPalette(100), limits=c(-1, 1))
 
+
+p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRLtdiff))+#as.factor(Helix))) +
+  sc+
+  geom_violin(colour = "grey50")+
+  geom_boxplot(width=0.1,colour = "grey50")+
+  stat_summary(fun.y=mean, geom="point", size=2, color="black")+
+  geom_jitter( size = 3)+ylim(-1,3)+
+  facet_wrap(~as.factor(contributingpairsX$Helix),nrow = 1)
+
+p1<-p1+ theme(legend.position = "bottom",panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+              panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.title.x = element_blank(),axis.title.y = element_blank(), axis.text.x=element_blank(),axis.text=element_text(size=25,face="bold"),legend.title = element_text( size=30, face="bold"),legend.text = element_text( size=25, 
+                                     ),legend.key.size = unit(2, 'cm'))
+
+
+ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Color_by_average_Helices_RdBupalette.pdf"), width =30.0, height = 15)
 ####################Plotting arc diagrams
 BPs<- read.csv(file = opt$P)
 
@@ -175,7 +192,7 @@ for (row in 1:nrow(BPs)) {
   Helix <- BPs[row, "Helix"]
   opening  <- BPs[row, "opening"]
 closing <- BPs[row, "closing"]
-L<- BPs[row, "length"]
+L<- BPs[row, "length"]-1
 df<-bind_cols(Helix,seq(opening, opening+L, by=1 ),seq(closing, closing-L, by=-1 ))
 df_total <- rbind(df_total,df)
 }
@@ -221,15 +238,27 @@ SelectedHelices<-df_rankedHelices[df_rankedHelices$order<=Numberofcompoundsforar
 
 LabelsHelices<-merge(SelectedHelices, BPs, by.x="Helix", by.y="Helix")
 
-Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,], layout = 'linear') + 
-  geom_edge_arc(aes( x=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$i, xend=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j,colour=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$Rd), 
-                fold = TRUE)+
+myPalette <- colorRampPalette(brewer.pal(11, "RdBu"))
+
+Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot & ( WeightedBasepairs$Rd >=0.1 |WeightedBasepairs$Rd <=-0.1) ,], layout = 'linear') + 
+  geom_edge_arc(aes( x=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot & ( WeightedBasepairs$Rd >=0.1 |WeightedBasepairs$Rd <=-0.1),]$i, xend=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot & ( WeightedBasepairs$Rd >=0.1|WeightedBasepairs$Rd <=-0.1),]$j,colour=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot & ( WeightedBasepairs$Rd >=0.1 |WeightedBasepairs$Rd <=-0.1),]$Rd), 
+                fold = TRUE)+#, strength = 1)+#abs(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot & ( WeightedBasepairs$Rd >=0.1 |WeightedBasepairs$Rd <=-0.1),]$Rd))+
  # geom_text(data=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,],
  #   label=WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$Helix, 
   #  x = WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$i, y = 20, 
  #   check_overlap = T
  # )+
-  geom_label(data=LabelsHelices,
+ # scale_x_continuous(expand = c(0, 0),limits = c(1,120))  +
+  scale_edge_colour_gradientn(name ="Rd average",colours = myPalette(100), limits=c(-1, 1))+
+  theme_minimal()+
+  scale_x_continuous(breaks = seq(0,max(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot &( WeightedBasepairs$Rd >=0.1 |WeightedBasepairs$Rd <=-0.1),]$j)+10, by = 10))+
+  arc_theme
+ 
+
+
+if(Numberofcompoundsforarcplot<10){
+ Parcplots<-  Parcplots+
+        geom_label(data=LabelsHelices,
               label=LabelsHelices$Helix, 
              x = LabelsHelices$opening+LabelsHelices$length/2, y = 1.5*log2(LabelsHelices$length), 
          hjust = rep(-1:1, length.out=length(LabelsHelices$opening)),
@@ -241,14 +270,9 @@ Parcplots<-ggraph(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsfo
   #            #color = "black",
   #           size=4,
             fill="grey",alpha=0.1
-  )+
- # scale_x_continuous(expand = c(0, 0),limits = c(1,120))  +
-  scale_edge_colour_gradientn(name ="Rd average",colours = myPalette(100), limits=c(-1, 1))+
-  theme_minimal()+
-  scale_x_continuous(breaks = seq(0,max(WeightedBasepairs[WeightedBasepairs$order<=Numberofcompoundsforarcplot,]$j)+10, by = 10))+
-  arc_theme
- 
-
+  )
+  }
+  
 ggexport(Parcplots, filename = paste("RedMaxPlots/",FASTA,"_Arc_diagram_Color_by_average_Helices.eps"), width =30, height = 5)
 
 

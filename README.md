@@ -30,7 +30,7 @@ RedMaxH requires an RNA sequence with the SHAPEMapper files `.mut`.
 `{RNA}.fa` should be placed in the folder `Fasta`
 
 ### SHAPEMapper output file 
-RedMaxH expects to find parsed files from SHAPEMapper `Pipeline_Untreated_/{RNA}/_parsed.mut` and `Pipeline_Modified_/{RNA}/_parsed.mut`, where `{RNA}` is the name of the chosen RNA (ie the name of the input FASTA file, minus its extension). 
+RedMaxH expects to find parsed files from SHAPEMapper `Pipeline_Modified_/{RNA}/_parsed.mut`, where `{RNA}` is the name of the chosen RNA (ie the name of the input FASTA file, minus its extension). 
 
 Files should be placed in the folder `OutputSHAPEMapper`
 

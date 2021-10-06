@@ -89,3 +89,4 @@ echo "Generating plots...";
 ####### Clustering of ranked helices
 Rscript --vanilla Clustering.R  --F $1 --C=./RedMaxHoutput/$1FREQUENCY_$2ex_contributingpairsforrankedhelices.csv  --R=./RedMaxHoutput/$1FREQUENCY_$2ex_RedmaxH_Rankedhelices.csv --P=./RedMaxHoutput/$1Profiling.csv --N=56
 echo "RedMaxH pipeline has been completed";
+echo $LocateRscript;

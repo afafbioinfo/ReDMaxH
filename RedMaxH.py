@@ -9,17 +9,25 @@ import operator
 import csv 
 import Prediction as PR
 import re
-from sklearn.datasets import make_blobs
+#from sklearn.preprocessing import MinMaxScaler
+#from sklearn.cluster import KMeans
+#from yellowbrick.cluster import KElbowVisualizer
+#from sklearn.datasets import make_blobs
 regex = re.compile('[^a-zA-Z]')
+#First parameter is the replacement, second parameter is your input string
+#regex.sub('', 'ab3d*E')
+#Out: 'abdE'
 parser = argparse.ArgumentParser()                                               
 parser.add_argument("--file", "-f", type=str, required=True)
 parser.add_argument("--profile", "-p", type=str, required=True)
+#parser.add_argument("--RNAprofile", "-N", type=str, required=True)
 parser.add_argument("--output", "-o", type=str, required=True)
 parser.add_argument("--fasta", "-R", type=str, required=True)
 parser.add_argument("--amplicon", "-a",  type=int, required=True)
 parser.add_argument("--backwardamplicon", "-b",  type=int, required=True)
 parser.add_argument("--Helixnbr", "-x",  type=int, required=True)
 args = parser.parse_args()
+
 
 def Merge(dict1, dict2):
     return(dict2.update(dict1))
@@ -38,10 +46,10 @@ def Computecorrelations(MM,UU,Prior,Pairs,lenRNA,Name,MinLenHelix,setofhelices):
 	Rd[Rd==0]=np.nan # set null normalized values to NA because Rd was initially defined as matrix of zeros
 	######### Output MM count and Rd
 	with open (os.path.join(OutputFolder,(Name.split("/")[-1]).split(".")[0]+"_Rawdata.csv"), 'w') as outfile: 
-		outfile.write("%s,%s,%s,%s,%s\n"% ( "i","j","ncts","MM","Rd" ))
+		outfile.write("%s,%s,%s,%s,%s,%s\n"% ( "i","j","ncts","MM","Prior","Rd" ))
 		for i in range( AmpliconF, lenRNA-AmpliconB):
 			for j in range( i+7,lenRNA-AmpliconB):
-				outfile.write("%i,%i,%s,%.4f,%.4f \n"% (i+1,j+1,str(seq[i]+seq[j]),round(MM[i,j],4),round(Rd[i,j],4)))
+				outfile.write("%i,%i,%s,%.4f,%.4f,%.4f \n"% (i+1,j+1,str(seq[i]+seq[j]),round(MM[i,j],4),round(Prior[i,j],4),round(Rd[i,j],4)))
 	outfile.close()
 	######## output data for specific helices
 	outputcorrelation=os.path.join(OutputFolder,(Name.split("/")[-1]).split(".")[0]+"_Norm_helices.csv")
@@ -223,7 +231,35 @@ def classification(mutationrate):
 	if mutationrate>0.04:
 		R="H"
 	return R
-
+'''	
+def EmbeddedHelices(listofHelices): # Embedded helices are defined as follow: H2 is inside the space [H1+L1,H1-L1] the maximal distance is two nucleotides from each side.
+	List=[]
+	#listofHelices=[("Cx",(79,97,8)),("Cx2",(83,92,4)),("Cx3",(80,98,4))]
+	for H1 in listofHelices:
+		for H2 in listofHelices:
+			#print  H1,H2,H2[1][0]>H1[1][0],H2[1][0]-(H1[1][0]+H1[1][2])<3,H1[1][1]-H1[1][2]-H2[1][1]<3
+			if H2[1][0]>=H1[1][0]+ H1[1][2] and H2[1][1]<=H1[1][1]- H1[1][2]and  H2[1][0]-H1[1][0]-H1[1][2]<3 and H1[1][1]-H1[1][2]-H2[1][1]<3:
+				# length of the new embeededhelix is the sum of the two helices lengths and the maximal gap value that is less than 3
+				LengthEmbeddedhelix=H1[1][2]+H2[1][2]+np.amax([H2[1][0]-H1[1][0]-H1[1][2],H1[1][1]-H1[1][2]-H2[1][1]])
+				List.append((str(H1[0]+H2[0]),(H1[1][0],H1[1][1],LengthEmbeddedhelix)))
+	#print "List embeeded", List
+	return List
+'''
+'''
+def RunEval(InputFile):
+    Energy=0
+    # launch the RNaeval command
+    #conf = loadConfig()
+    energiesFile =  "energyvalues.txt"
+    os.system('RNAeval -d2 <' + InputFile  + '>' + energiesFile) # -v if we need all loops energy values
+    # Parse the RNAevaloutput to extract energy values
+    lines = PR.Parsefile(energiesFile)
+    #print lines
+    for i in xrange(1, len(lines), 2):
+        # i is the stucture number and 'lines[i].split(" ")[1][1:-2]' is  the  corresponding  energy value
+        Energy= (lines[i].split(" ")[1][1:-2])
+    return Energy
+'''       
 if __name__=="__main__":
 	#python2.7 ComputeCorrelationsMaximalhelicesElimination.py --file Incell/Modified/5S_INCELL1_5SFREQUENCY_COUNTex.txt  --output 2020-10-21 --fasta alignment_sequences/5S.fa --amplicon 20 --p /home/user/Documents/GeorgiaTech2020/Generate_normalized_prior_Input/2020-10-20/Profiling/5SProfiling.csv
 	setofhelices=[]
@@ -243,7 +279,7 @@ if __name__=="__main__":
     	RNA=File.split("/")[-1].split(".")[0]
 	if 1==1:
 		
-                #outputIndexation=os.path.join(OutputFolder,RNA+"_MutationIndex.csv")
+                outputIndexation=os.path.join(OutputFolder,RNA+"_MutationIndex.csv")
 		#print outputIndexation
 		######### Parse RNA sequence and structure
 		fp=open(Fastafile)
@@ -286,12 +322,12 @@ if __name__=="__main__":
 		       UU[I,J]= int(bb) #0-based
 		       UM[I,J]=int(kk)
 		       MU[I,J]= int(dd)
-		'''
+		
 		with open (outputIndexation, 'w') as outfile:	
 			outfile.write("%s,%s,%s,%s,%s\n"% ("position","nucleotide","structure","MutationRate","MutationRange"))
 			
-		'''
-		if 1==1:				
+		
+						
 			for i in range(AmpliconF, lenRNA-AmpliconB):
 				if i in ListUnpaired:
 					L="Up"
@@ -304,7 +340,7 @@ if __name__=="__main__":
 				if (UU[i,i]+MM[i,i])!=0:
 					X=MM[i,i]/float(UU[i,i]+MM[i,i])
 					
-				#outfile.write("%i,%s,%s,%.4f,%s\n"% (i+1,seq[i],L,X,classification(X)))
+				outfile.write("%i,%s,%s,%.4f,%s\n"% (i+1,seq[i],L,X,classification(X)))
 
 				####################### Compute Prior on the range [amplicon,lenRNA-amplicon]x[i+7 , lenRNA-amplicon]: 
 				for j in range(i+7, lenRNA-AmpliconB):
@@ -347,4 +383,117 @@ if __name__=="__main__":
 					OrderedhelicesWithCoord.append( helix2 )
 					
 		#print OrderedhelicesWithCoord
-		print ("Prior and Rd successfully computed for "+(File.split("/")[-1]).split("_")[0]+ " RNA for the condition "+ (File.split("/")[-1]).split("_")[1] ) 	
+		print ("Prior and Rd successfully computed for "+(File.split("/")[-1]).split("_")[0]+ " RNA for the condition "+ (File.split("/")[-1]).split("_")[1] ) 
+	'''
+	### Structure prediction using the set of sorted helices based on a decreasing Rltdiff average value
+			
+	seq=seq.strip() # clean the sequence from \n
+	SS=SS.strip() #idem pour la structure
+	print "Native structure",SS
+	Method=4#4 1 2 or 3 5
+	#nbrofheliceschosenhelices=11 # how many HC is going to be tested
+	##combi=30 # number of combination of constraints
+	Predictedstructures=[]
+	PredictedstructuresCombinations=[]
+	#listofhelices=OrderedhelicesWithCoord
+	# This transformatin is necessary to keep using tuple but in a list
+	listofhelices1=[[elem] for elem in OrderedhelicesWithCoord]
+	Nativehelices=[[elem for elem in setofhelices if elem[0][0]!="C"]] #all helices
+	#print "which helix was ssleected" ,OrderedhelicesWithCoord
+	#print "hhhhh", Nativehelices
+	#Combin=PR.combinations(listofhelices[:nbrofheliceschosenhelices])
+	#print Combin ,"before"
+	#Combin=PR.ComputeCombinations(listofhelices[:nbrofheliceschosenhelices])
+	#print listofhelices1
+	Combin=PR.CascadingConstraintsversion2(OrderedhelicesWithCoord[:nbrofheliceschosenhelices])
+	#print Combin ,"after"fv
+	Combin=[[elem] for elem in Combin]
+	#print "hhh", listofhelices[:nbrofheliceschosenhelices]
+	#########1-MFE
+	Predictedstructures.append(PR.Predict2D(Fastafile,"MFE"))
+	#######2- Elements in the sorted helices set 
+	for case  in listofhelices1:
+		#print "case",case
+		Constraintfile=PR.buildConstraint(seq, case,Method)
+		#print "fff",Constraintfile
+		#print  PR.Predict2D(Constraintfile,str(case)+str(Method))
+		Predictedstructures.append( PR.Predict2D(Constraintfile,str(case)+str(Method)))
+	########3- Combinations 
+	
+	#Combin[:0] =Nativehelices # append native helices at the beginning, pay attention because there is an overlaping issue!
+	Combin[:0] =PR.CascadingConstraints(Nativehelices)
+	#print "hhhhh"
+	#print "eeeeeeeeeee",Nativehelices,"Possible combinaions =" ,Combin
+	#print "llllllllllll",Combin
+	combi=len(Combin)
+	
+	for X in range(combi):
+		for case in Combin[X]:#listofhelices1+Combin[1:]:
+			#print case
+			#print "hopla",case
+			Constraintfile=PR.buildConstraint(seq, case,Method)#
+			PredictedstructuresCombinations.append( PR.Predict2D(Constraintfile,str(case)+str(Method)))
+		
+	
+	##############Cleaning all ps RNAfold generated plots 
+	dir="."	
+	PR.removefileswithextension(dir)
+	##########Create a structure folder
+        StructureFolder="./"+ str(RNA)
+        if not os.path.exists(StructureFolder):
+    		os.makedirs(StructureFolder)
+	#################Assess the prediction accuraccy
+	BP=  PR.ListBasePairsFromStruct(SS)
+	#sprint "pairs from the refernce", BP
+	outputaccuracy=os.path.join(OutputFolder,(RNA+"_accuracyMaximalHelixConstrainedStructure.csv"))
+	outputaccuracyCombinations=os.path.join(OutputFolder,(RNA+"_accuracyMaximalHelixConstrainedStructureCombinations.csv"))
+	Ind=0
+	with open (outputaccuracy, 'w') as outfile:
+		outfile.write("%s,%s,%s,%s,%s\n"% ( "Constraint","Sensitivity","PPV","Accuracy","Structure" ))
+		for PredictedStr in Predictedstructures:
+			BPM= PR.ListBasePairsFromStruct(PredictedStr[2].split(" ")[0]	)
+			MCCSHAPE_Rsample=(PR.PPV_sensitivity_Rsample(BP,BPM)[0],PR.PPV_sensitivity_Rsample(BP,BPM)[1])
+			outfile.write("%s,%.4f,%.4f,%.4f ,%s\n"% (PredictedStr[0].replace(',', ''), round(MCCSHAPE_Rsample[0],4), round(MCCSHAPE_Rsample[1],4), round(math.sqrt(round(MCCSHAPE_Rsample[0],4)*round(MCCSHAPE_Rsample[1],4)),3),PredictedStr[2].split(" ")[0]))
+			if Ind==0:
+				###"get the accuracy of the MFE
+				rapport0=math.sqrt(round(MCCSHAPE_Rsample[0],4)*round(MCCSHAPE_Rsample[1],4))
+				print rapport0
+			Ind+=1
+	outfile.close()
+	
+	Pstructures=[]
+	with open (outputaccuracyCombinations, 'w') as outfileX:
+		outfileX.write("%s,%s,%s,%s,%s,%s,%s,%s\n"% ( "Constraint","Sensitivity","PPV","Accuracy","%Accuracy/optimal","%Accuracy/MFE","energy","Structure" ))
+		Index=0
+		#print PredictedstructuresCombinations
+		for PredictedStr in PredictedstructuresCombinations:
+			
+			#### Generate structures to visualize
+			#os.makedirs(OutputFolder+"/"+RNA)
+			outfilestructure=  os.path.join(StructureFolder,(PredictedStr[0]+ ".dbn"))
+			with open (outfilestructure  , 'w') as outfilest:
+				outfilest.write("%s\n%s\n%s"% (PredictedStr[0].replace(',', ''),seq,PredictedStr[2].split(" ")[0]))
+			outfilest.close()
+			
+			##########Generate Files for RNAeval ##keep this order dbn than txt
+			outfilestructure=  os.path.join(StructureFolder,(regex.sub('', PredictedStr[0])+ ".txt"))
+			with open (outfilestructure  , 'w') as outfilest:
+				outfilest.write("%s\n%s"% (seq,PredictedStr[2].split(" ")[0]))
+			outfilest.close()
+			######################compute energy 
+						
+			BPM= PR.ListBasePairsFromStruct(PredictedStr[2].split(" ")[0]	)
+			#print PredictedStr[2]
+			MCCSHAPE_Rsample=(PR.PPV_sensitivity_Rsample(BP,BPM)[0],PR.PPV_sensitivity_Rsample(BP,BPM)[1])
+			
+			if Index==0:###"get the accuracy of the reference structure
+				rapport=math.sqrt(round(MCCSHAPE_Rsample[0],4)*round(MCCSHAPE_Rsample[1],4))
+				#print rapport
+			outfileX.write("%s,%.4f,%.4f,%.4f,%.2f,%.2f,%.1f,%s\n"% (PredictedStr[0].replace(',', ''), round(MCCSHAPE_Rsample[0],4), round(MCCSHAPE_Rsample[1],4), round(math.sqrt(round(MCCSHAPE_Rsample[0],4)*round(MCCSHAPE_Rsample[1],4)),3),math.sqrt(MCCSHAPE_Rsample[0]*MCCSHAPE_Rsample[1])/float(rapport)*100,math.sqrt(MCCSHAPE_Rsample[0]*MCCSHAPE_Rsample[1])/float(rapport0)*100,float(RunEval(outfilestructure)),PredictedStr[2].split(" ")[0]))
+			
+			Pstructures.append(PredictedStr[2].split(" ")[0])
+			Index+=1	
+			#############
+		outfileX.write("%s %s \n"% ("# different structures = ", len(set(Pstructures))))		
+	outfileX.close()
+	'''		

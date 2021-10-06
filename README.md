@@ -1,13 +1,14 @@
-# RedMaxH
+# ReDMaxH
 ### mutation-Relative differences computed on Maximal Helices
 
- RedMaxH is a pipeline for predicting RNA structure features (=: Helices) compatible with DMS-MaP mutational data. From one or several input mutation data without any thermodynamic assumption, it computes and outputs the set of helices that are best supported by experimental data.
+ ReDMaxH is a pipeline for predicting RNA structure features (=: Helices) compatible with DMS-MaP mutational data. From one or several input mutation data without any thermodynamic assumption, it computes and outputs the set of helices that are best supported by experimental data.
 
 If you want to know more about the method visit [https://vizbi.org/Posters/2021/vA02]
 
 ## Installing RedMaxH
 
-RedMaxH consists in a set of Python 2.7+, C and R scripts. 
+ReDMaxH consists in a set of Python 2.7+, C and R scripts. 
+It requires a c compiler and Rscript.
 
  ### Create a symbolic link for Rscript 
     #first locate Rscript

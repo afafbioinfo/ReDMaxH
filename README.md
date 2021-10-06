@@ -9,6 +9,12 @@ If you want to know more about the method visit [https://vizbi.org/Posters/2021/
 
 RedMaxH consists in a set of Python 2.7+, C and R scripts. 
 
+ ## Create a symbolic link for Rscript 
+    #first locate Rscript
+    LocateRscript=locate RScript
+    cd /usr/local/bin
+    ln -s LocateRscript Rscript
+    cd -
 
 ## Executing RedMaxH
 

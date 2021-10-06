@@ -13,7 +13,9 @@ gcc -shared -o ExternalScripts/readMutStrings.so -fPIC ExternalScripts/readMutSt
     OS='Mac'
     ##Generated shared library under OS X
 g++ -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c
-
+    ## Create a symbolic link for Rscript 
+    #first locate Rscript
+    locate RScript
     ;;
   
   *) ;;

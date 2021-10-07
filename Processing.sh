@@ -12,7 +12,7 @@ gcc -shared -o ExternalScripts/readMutStrings.so -fPIC ExternalScripts/readMutSt
   'Darwin') 
     OS='Mac'
     ##Generated shared library under OS X
-gcc -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c
+gcc -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c -framework Python
     ## Create a symbolic link for Rscript 
     #first locate Rscript
     locate RScript

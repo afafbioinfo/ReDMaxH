@@ -1,28 +1,26 @@
  #!/bin/sh
 
+cd ExternalScripts
+python setup.py build_ext --inplace
+cd -
 # Detect the système d exploitation
-OS="`uname`"
-case $OS in
-  'Linux')
-    OS='Linux'
+#OS="`uname`"
+#case $OS in
+#  'Linux')
+ #   OS='Linux'
     ##Generated shared library under linux
-gcc -shared -o ExternalScripts/readMutStrings.so -fPIC ExternalScripts/readMutStrings.c
+#gcc -shared -o ExternalScripts/readMutStrings.so -fPIC ExternalScripts/readMutStrings.c
 
-    ;;
-  'Darwin') 
-    OS='Mac'
+#    ;;
+#  'Darwin') 
+#    OS='Mac'
     ##Generated shared library under OS X
-gcc -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c -framework Python
-    ## Create a symbolic link for Rscript 
-    #first locate Rscript
-    locate RScript
-    ;;
+#g++ -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c
+   
+ #   ;;
   
-  *) ;;
-esac
-
-
-
+ # *) ;;
+#esac
 
 mkdir -p RedMaxHoutput
 mkdir -p RedMaxPlots

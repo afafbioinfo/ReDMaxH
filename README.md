@@ -66,7 +66,7 @@ RedMaxH typically produces many files in `RedMaxHoutput` and plots in `RedMaxPlo
 `contributingpairsforrankedhelices.csv`  Value of relative difference for tuples from helix and helix coumpounds.
 
 `RedmaxH_Rankedhelices.csv` The list of Ranked helices and helix-compounds 
-(Helix (= Helix or coumpound) ,averageRLtdiff (Mean over all contributing tuples),nbrobservations (# of tuples),Length (Length of a Helix),nbrCCpairs,nbrAApairs,Profiling,std,median,averageonpositive,stdonpositive,medianonpsitive)
+(Helix (= Helix or coumpound Helix1-Helix2) ,averageRLtdiff (Mean over all contributing tuples),nbrobservations (# of tuples),Length (Length of a Helix),nbrCCpairs,nbrAApairs,std,median,averageonpositive,stdonpositive,medianonpsitive)
 
 
 `Kmeans_elbow_mean.csv` Ranked helices affected to clusters ( where the number of clusters is determined using the elbow method) with their classification based on global std and global  mean.

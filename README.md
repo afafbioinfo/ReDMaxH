@@ -53,15 +53,14 @@ RedMaxH typically produces many files in `RedMaxHoutput` and plots in `RedMaxPlo
 
 `Profiling.csv`  Set of maximal helices (name, opening, closing, length). Maximum helices are based on WC pairing without any thermodynamic prerequisites. A maximal helix (C3,20,96,6) correponds to the 3rd possibly to form long maximal helix that has 6 base pairs [20,96],[20+1,96-1],[20+2,96-2],[20+3,96-3],[20+4,96-4],and [20+5,96-5].
 
-`Rawdata.csv`  for a tuple(i,j) [1-based], the MM count and the Rltdiff (=mutation relative difference) are reported. Note that we impose a minimal distance of 6 ncts 
-between to count a joint mutation. 
+`Rawdata.csv`  for a tuple(i,j) [1-based], the MM (=joint mutations) count and the Rd (=mutation relative difference) are reported. Note that we impose a minimal distance of 6 ncts between two nucleotides i and j to count a joint mutation. 
 
 
 `Norm_helices.csv`  Dataset ( type of the experiment: Cell-free, Incell...),Helix (Maximal helices),i (opening pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),j (closing pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),seqij (Nucleotide nature of the tuple(i,j),Rltdiff (Mutation relative difference),ijdist (length of the tuple)
 
 `2DHelicesCommonPairs.csv`  Common tuples in the Moore neigborhood of order 1 between two helices.
 
-`MergedHelices.csv `        List of helix pair compounds with the number of common tuples and the mutation relative difference of the coumpound.
+`MergedHelices.csv `        List of helix pair compounds with the number of common tuples and the mutation relative difference of the coumpound. *Helix1-Helix2* will form the helix compound to be considered in the ranking instead of Helix1 and Helix2 individually. 
 
 
 `contributingpairsforrankedhelices.csv`  Value of relative difference for tuples from helix and helix coumpounds.

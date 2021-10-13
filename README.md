@@ -56,7 +56,7 @@ RedMaxH typically produces many files in `RedMaxHoutput` and plots in `RedMaxPlo
 `Rawdata.csv`  for a tuple(i,j) [1-based], the MM (=joint mutations) count and the Rd (=mutation relative difference) are reported. Note that we impose a minimal distance of 6 ncts between two nucleotides i and j to count a joint mutation. 
 
 
-`Norm_helices.csv`  Dataset ( type of the experiment: Cell-free, Incell...),Helix (Maximal helices),i (opening pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),j (closing pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),seqij (Nucleotide nature of the tuple(i,j),Rltdiff (Mutation relative difference),ijdist (length of the tuple)
+`Norm_helices.csv`  Dataset ( type of the experiment: Cell-free, Incell...),Helix (Maximal helices),i (opening pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),j (closing pair in the tuple (i,j) that belongs to the Moore neigborhood of the Helix),seqij (Nucleotide nature of the tuple(i,j),Rd(Mutation relative difference),ijdist (length of the tuple)
 
 `2DHelicesCommonPairs.csv`  Common tuples in the Moore neigborhood of order 1 between two helices.
 

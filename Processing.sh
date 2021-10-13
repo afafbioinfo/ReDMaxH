@@ -6,24 +6,7 @@ python setup.py build_ext --inplace
 cd -
 fi
 
-# Detect the système d exploitation
-#OS="`uname`"
-#case $OS in
-#  'Linux')
- #   OS='Linux'
-    ##Generated shared library under linux
-#gcc -shared -o ExternalScripts/readMutStrings.so -fPIC ExternalScripts/readMutStrings.c
 
-#    ;;
-#  'Darwin') 
-#    OS='Mac'
-    ##Generated shared library under OS X
-#g++ -dynamiclib -o ExternalScripts/readMutStrings.dylib ExternalScripts/readMutStrings.c
-   
- #   ;;
-  
- # *) ;;
-#esac
 
 mkdir -p RedMaxHoutput
 mkdir -p RedMaxPlots

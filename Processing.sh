@@ -1,8 +1,11 @@
  #!/bin/sh
 
+ if [ ! -d ExternalScripts/readMutStrings.c ]; then
 cd ExternalScripts
 python setup.py build_ext --inplace
 cd -
+fi
+
 # Detect the système d exploitation
 #OS="`uname`"
 #case $OS in

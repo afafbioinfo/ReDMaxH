@@ -50,7 +50,7 @@ RedMaxH typically produces many files in `RedMaxHoutput` and plots in `RedMaxPlo
 
 **RedMaxHoutput** files suffixe:
 
-`Profiling.csv`  Set of maximal helices (name, opening, closing, length)
+`Profiling.csv`  Set of maximal helices (name, opening, closing, length). Maximum helices are based on WC pairing without any thermodynamic prerequisites. A maximal helix (C3,20,96,6) correponds to the 3rd possibly to form long maximal helix that has 6 base pairs [20,96],[20+1,96-1],[20+2,96-2],[20+3,96-3],[20+4,96-4],and [20+5,96-5].
 
 `Rawdata.csv`  for a tuple(i,j) [1-based], the MM count and the Rltdiff (=mutation relative difference) are reported. Note that we impose a minimal distance of 6 ncts 
 between to count a joint mutation. 

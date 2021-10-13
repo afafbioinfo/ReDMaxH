@@ -161,7 +161,7 @@ def Computecorrelations(MM,UU,Prior,Pairs,lenRNA,Name,MinLenHelix,setofhelices):
 	SortedAverageHelix = dict3.items()
 	SortedAverageHelix.sort(key=lambda x:-x[1][0])			
 	with open (outputcorrelation, 'w') as outfile:
-		outfile.write("%s,%s,%s,%s,%s,%s,%s\n"% ( "Dataset","Helix","i","j","seqij","Rltdiff","ijdist"))#,"commonpairs" ))
+		outfile.write("%s,%s,%s,%s,%s,%s,%s\n"% ( "Dataset","Helix","i","j","seqij","Rd","ijdist"))#,"commonpairs" ))
 		for elem in Lista:
 			outfile.write("%s,%s,%s,%s,%s,%.4f,%i \n"% ( ((Name.split("/")[-1]).split("_")[1]).split(".")[0],elem[0],str(elem[1]+1),str(elem[2]+1),str(seq[elem[1]]+seq[elem[2]]),round(elem[3],4),elem[2]-elem[1]+1))#,CommonPairs[elem[0]]))
 	

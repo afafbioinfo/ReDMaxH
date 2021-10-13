@@ -42,24 +42,24 @@ Rankedhelices<- read.csv(file = opt$R)
 FASTA<-opt$F
 target<-as.character(Rankedhelices$Helix)
 
-M<-mean(Rankedhelices$averageRLtdiff)
-sigma<-sd(Rankedhelices$averageRLtdiff)
+M<-mean(Rankedhelices$averageRd)
+sigma<-sd(Rankedhelices$averageRd)
 
 Rankedhelices <-Rankedhelices  %>%
-  mutate(Statt= case_when(Rankedhelices$averageRLtdiff >=M+2*sigma  ~ '>= M+2sigma',
-                          Rankedhelices$averageRLtdiff >=M+1*sigma & Rankedhelices$averageRLtdiff <M+2*sigma ~ '>=M+sigma & <M+2sigma',
-                          Rankedhelices$averageRLtdiff >=M & Rankedhelices$averageRLtdiff <M+1*sigma ~ '>=M & <M+sigma',
-                          Rankedhelices$averageRLtdiff >=M-sigma & Rankedhelices$averageRLtdiff <M~ ' >=M-sigma& <M',
-                          Rankedhelices$averageRLtdiff <M-sigma ~ ' <M-sigma& <M' ))
+  mutate(Statt= case_when(Rankedhelices$averageRd >=M+2*sigma  ~ '>= M+2sigma',
+                          Rankedhelices$averageRd >=M+1*sigma & Rankedhelices$averageRd <M+2*sigma ~ '>=M+sigma & <M+2sigma',
+                          Rankedhelices$averageRd >=M & Rankedhelices$averageRd <M+1*sigma ~ '>=M & <M+sigma',
+                          Rankedhelices$averageRd >=M-sigma & Rankedhelices$averageRd <M~ ' >=M-sigma& <M',
+                          Rankedhelices$averageRd <M-sigma ~ ' <M-sigma& <M' ))
 
 ########################################"clusteing based on the mean
 set.seed(123)
 
 # function to compute total within-cluster sum of square 
 wss <- function(k) {
-  kmeans(Rankedhelices$averageRLtdiff, k, nstart = 10 )$tot.withinss
+  kmeans(Rankedhelices$averageRd, k, nstart = 10 )$tot.withinss
 }
-kmeans(Rankedhelices$averageRLtdiff, 1, nstart = 10 )
+kmeans(Rankedhelices$averageRd, 1, nstart = 10 )
 # Compute and plot wss for k = 1 to k = 15
 k.values <- 1:15
 
@@ -73,18 +73,18 @@ L<-plot(k.values, wss_values,
      xlab="Number of clusters K",
      ylab="Total within-clusters sum of squares (Mean)")
 
-k <-kmeans(Rankedhelices$averageRLtdiff, centers=thresh) #Create thresh clusters, Remove columns 1 and 2
+k <-kmeans(Rankedhelices$averageRd, centers=thresh) #Create thresh clusters, Remove columns 1 and 2
 #length(k$cluster)
 #length(target)
 
 Numberofhelicesinoptimalcluster<-table( k$cluster)[names(table (k$cluster)) == k$cluster[1]]
 k$clusters
 Numberofhelicesinoptimalcluster
-k3 <-kmeans(Rankedhelices$averageRLtdiff, centers=3) #Create3 clusters
+k3 <-kmeans(Rankedhelices$averageRd, centers=3) #Create3 clusters
 k3$cluster
 Numberofhelicesinoptimalcluster<-table( k3$cluster)[names(table (k3$cluster)) == k3$cluster[1]]
 Numberofhelicesinoptimalcluster
-Newdata<-data.frame(target,Rankedhelices$averageRLtdiff,k$cluster,Rankedhelices$Statt)
+Newdata<-data.frame(target,Rankedhelices$averageRd,k$cluster,Rankedhelices$Statt)
 write.csv(Newdata,'RedMaxHoutput/Kmeans_elbow_mean.csv')
 Newdata3<-data.frame(target,k3$cluster,Rankedhelices$Statt)
 
@@ -145,10 +145,10 @@ ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Elbow_Clusters_Helices.pdf"
 
 ##############" TODO  bring back the mypalette to the first Spectral values
 myPalette <- colorRampPalette(brewer.pal(11, "Spectral"))
-sc <- scale_colour_gradientn(name ="Average R",colours = myPalette(100), limits=c(-1, 1))
+sc <- scale_colour_gradientn(name ="Rd Average ",colours = myPalette(100), limits=c(-1, 1))
 
 
-p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRLtdiff))+#as.factor(Helix))) +
+p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRd))+#as.factor(Helix))) +
   sc+
   geom_violin(colour = "grey50")+
   geom_boxplot(width=0.1,colour = "grey50")+
@@ -165,10 +165,10 @@ ggexport(p1, filename = paste("RedMaxPlots/",FASTA,"_Color_by_average_Helices.pd
 
 
 myPalette <- colorRampPalette(brewer.pal(11, "RdBu"))
-sc <- scale_colour_gradientn(name ="Average R",colours = myPalette(100), limits=c(-1, 1))
+sc <- scale_colour_gradientn(name ="Rd Average ",colours = myPalette(100), limits=c(-1, 1))
 
 
-p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRLtdiff))+#as.factor(Helix))) +
+p1<-ggplot(contributingpairsX,aes(x=1,y=Rforpairs,colour=Rankedhelices.averageRd))+#as.factor(Helix))) +
   sc+
   geom_violin(colour = "grey50")+
   geom_boxplot(width=0.1,colour = "grey50")+
@@ -201,7 +201,7 @@ colnames(df_total)=c("Helix", "i","j")
 df_rankedHelices = data.frame()
 for (row in 1:nrow(Rankedhelices)) {
   Helix <- Rankedhelices[row, "Helix"]
- Rlt<-Rankedhelices[row, "averageRLtdiff"]
+ Rlt<-Rankedhelices[row, "averageRd"]
   df <-bind_cols(str_split(Helix,"-"), Rlt,row)
   df_rankedHelices<- rbind( df_rankedHelices,df)
 }
@@ -274,5 +274,4 @@ if(Numberofcompoundsforarcplot<10){
   }
   
 ggexport(Parcplots, filename = paste("RedMaxPlots/",FASTA,"_Arc_diagram_Color_by_average_Helices.eps"), width =30, height = 5)
-
 

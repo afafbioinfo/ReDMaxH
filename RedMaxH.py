@@ -9,7 +9,8 @@ import operator
 import csv 
 import Prediction as PR
 import re
-from sklearn.datasets import make_blobs
+# Clustering is performed using R package
+#from sklearn.datasets import make_blobs
 regex = re.compile('[^a-zA-Z]')
 parser = argparse.ArgumentParser()                                               
 parser.add_argument("--file", "-f", type=str, required=True)
